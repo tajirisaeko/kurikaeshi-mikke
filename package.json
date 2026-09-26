@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "test": "node --test test/",
+    "test": "node --test \"test/**/*.test.js\"",
     "icon": "electron scripts/make-icon.js",
     "build": "electron-builder",
     "build:win": "electron-builder --win",
