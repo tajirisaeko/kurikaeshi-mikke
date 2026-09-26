@@ -1,0 +1,41 @@
+name: Build
+
+# 手動実行（Actions タブ → Build → Run workflow）
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows
+            command: npx electron-builder --win --publish never
+            artifacts: |
+              dist/*.exe
+          - os: macos-latest
+            name: mac
+            command: npx electron-builder --mac --publish never
+            artifacts: |
+              dist/*.dmg
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build (${{ matrix.name }})
+        run: ${{ matrix.command }}
+        env:
+          # 署名なしビルド（Apple / Windows の証明書は使わない）
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kurikaeshi-mikke-${{ matrix.name }}
+          path: ${{ matrix.artifacts }}
+          if-no-files-found: error

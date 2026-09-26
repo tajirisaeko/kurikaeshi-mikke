@@ -1,0 +1,76 @@
+{
+  "name": "kurikaeshi-mikke",
+  "productName": "くりかえしみっけ",
+  "version": "1.0.0",
+  "description": "Notionの繰り返しテンプレートが量産したページの痕跡を見つけるデスクトップアプリ",
+  "main": "main.js",
+  "author": "Saeko",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/",
+    "icon": "electron scripts/make-icon.js",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.saeko.kurikaeshimikke",
+    "productName": "くりかえしみっけ",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "artifactName": "KurikaeshiMikke-Setup-${version}.exe"
+    },
+    "portable": {
+      "artifactName": "KurikaeshiMikke-Portable-${version}.exe"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "artifactName": "KurikaeshiMikke-${version}-mac-universal.dmg"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
+  }
+}
