@@ -1,7 +1,7 @@
 {
   "name": "kurikaeshi-mikke",
   "productName": "くりかえしみっけ",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Notionの繰り返しテンプレートが量産したページの痕跡を見つけるデスクトップアプリ",
   "main": "main.js",
   "author": "Saeko",
